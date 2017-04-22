@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html ng-app='demo'>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div ng-controller="get">
+			<!--<h1>{{name}}</h1>-->
+			<button ng-click="next()">下一页</button>
+			<button ng-click="pageTo(1)">第一页</button>
+			<button ng-click="pageTo(2)">第二页</button>
+			<button ng-click="pageTo(3)">第三页</button>
+			<button ng-click="pageTo(4)">第四页</button>
+			<button ng-click="pageTo(5)">第五页</button>
+			<button ng-click="pre()">上一页</button>
+			<ul>
+				<li ng-repeat='a in msg | limitTo :3: page' ng-bind="a.title+'  '+a.name+'  '+a.thing"><!--{{a.title}}    {{a.name}}  {{a.thing}}--></li>
+			</ul>
+		</div>
+	</body>
+	<script src="../js/angular.js"></script>
+	<script>
+		var app = angular.module("demo", []);
+		app.controller("get", function($scope) {
+			$scope.name='杜凡呀！'
+			$scope.page = 0;
+			$scope.next = function() {
+				if($scope.page + 3 < $scope.msg.length) {
+					$scope.page += 3;
+				} else {
+					$scope.page;
+				}
+			}
+			$scope.pre = function() {
+				if($scope.page == 0) {
+					$scope.page = 0;
+				} else {
+					$scope.page -= 3;
+				}
+			}
+			$scope.pageTo = function(num) {
+				
+				$scope.page = (num - 1) * 3;
+			}
+			
+			$scope.msg = [{
+				title:'第一條信息',
+				name:'蜡笔小新',
+				thing:'麻麻，你回来了',
+			},{
+				title:'第二條信息',
+				name:'哆啦A梦',
+				thing:'我最爱吃铜锣烧了',
+			},{
+				title:'第三條信息',
+				name:'大雄',
+				thing:'胖虎小夫又欺負我',
+			},{
+				title:'第四條信息',
+				name:'靜香',
+				thing:'大雄什麼時候能勇敢點呢',
+			},{
+				title:'第五條信息',
+				name:'小夫',
+				thing:'去找胖虎欺負大雄去',
+			},{
+				title:'第六條信息',
+				name:'胖虎',
+				thing:'我要去揍大雄'
+			},{
+				title:'第七條信息',
+				name:'媽媽',
+				thing:'小新怎麼還沒回來',
+			},{
+				title:'第八條信息',
+				name:'粑粑',
+				thing:'美好的一天又過去了',
+			},{
+				title:'第九條信息',
+				name:'小白',
+				thing:'我才不是棉花糖',
+			},{
+				title:'第十條信息',
+				name:'Hello Kity',
+				thing:'喵喵喵',
+			},{
+				title:'第十一條信息',
+				name:'蜡笔小新',
+				thing:'麻麻，你回来了',
+			},{
+				title:'第十二條信息',
+				name:'哆啦A梦',
+				thing:'我最爱吃铜锣烧了',
+			},{
+				title:'第十三條信息',
+				name:'大雄',
+				thing:'胖虎小夫又欺負我',
+			}]
+		})
+	</script>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" ng-app='demo'>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.tab{
+			display: flex;
+			height: 200px;
+			position: relative;
+		}
+		.center{
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%,-50%);
+		}
+		.tab>div{
+			
+			flex: 1;
+			height: 30px;
+			line-height: 30px;
+			text-align: center;
+			cursor: pointer;
+			
+		}
+		.one{
+			
+			height: 100px;
+			line-height: 100px;
+			text-align: center;
+
+		}
+
+		.active{border-bottom: 2px solid #f60;}
+
+		.container {  
+		  /*  width: 200px; */ 
+		    height: 200px;  
+		    border: 1px solid blue;  
+		    position: relative;  
+		}  
+		  
+	    .container > div {  
+	        position: absolute;  
+	        left: 0px;  
+	        top: 0px;  
+	        text-align: center;  
+	        width: 100%;  
+	    } 
+	</style>
+</head>
+<body>
+	<div ng-controller='change'>
+		<div class='tab'>
+			<div ng-click="get('list',1)" ng-class="page==1 ? 'active':'' ">第一页</div>
+			<div ng-click="get('list2',2)" ng-class="page==2 ? 'active':'' ">第二页</div>
+			<div ng-click="get('list3',3)" ng-class="page==3 ? 'active':'' ">第三页</div>
+			<div ng-click="get('list4',4)" ng-class="page==4 ? 'active':'' ">第四页</div>
+			<div ng-switch="show" class="center">
+		        <div class="one" ng-switch-when="list">我是第一页啊</div>
+		        <div class="one" ng-switch-when="list2">我是第二页啊</div>  
+		        <div class="one" ng-switch-when="list3">我是第三页啊</div>
+		        <div class="one" ng-switch-when="list4">我是第四页啊</div>
+		      
+		    </div>
+			
+		</div>
+	</div>
+	<div ng-controller='text'>
+		
+		<select ng-model="text">
+		  <option value="a">第一页</option>
+		  <option value="b">第二页</option>
+		  <option value="c">第三页</option>
+		</select>
+		 <div ng-switch="text" class="container"> 
+			<div class="fade" ng-switch-when="a">
+			     <h1>我是第一页</h1>
+			     
+		    </div>
+		    <div class="fade" ng-switch-when="b">
+			        <h1>我是第二页</h1>
+		    </div>
+		    <div class="fade" ng-switch-when="c">
+			       <h1>我是第三页</h1>
+		    </div>
+		    <div class="fade" ng-switch-default="d">
+			       <h1>我是第三页</h1>
+		    </div>
+		 </div> 
+	</div>
+	<div ng-controller='hsow'>
+		<div class="tab">
+			<div ng-click='touch(1)' ng-class="{'active':page1}">第一页</div>
+			<div ng-click='touch(2)' ng-class="{'active':page2}">第二页</div>
+		</div>
+
+		<!-- 控制显示，隐藏元素 -->
+		<div class='one' ng-show="page1">到了吃晚饭的时间</div>
+		<div class='one' ng-show="page2">好饿呀！</div>
+
+		<!-- 删除节点，添加节点 -->
+		<!-- <div class='one' ng-if="page1">马上要下课了</div>
+		<div class='one' ng-if="page2">赶快敲代码！</div> -->
+	</div>
+</body>
+<script src='js/angular.js'></script>
+<script>
+	angular.module('demo',[])
+	.controller('change',function($scope){
+		// $scope.arr=['第一页','第二页'，'第三页','第四页']
+		// $scope.show = "list3"
+		$scope.page=1;
+		$scope.bool1=true;
+		$scope.bool2=false;
+		$scope.show='list';
+
+		$scope.get=function(show,index){
+			console.log(show)
+			$scope.show =show;
+			$scope.page = index;
+		}
+	})
+	.controller('text',function($scope){
+
+	})
+	.controller('hsow',function($scope){
+		$scope.page1=true;
+		$scope.page2=false;
+		$scope.touch=function(page){
+			if(page==1){
+				$scope.page1=true;
+				$scope.page2=false;
+			}else{
+				$scope.page1=false;
+				$scope.page2=true;
+			}
+		}
+	})
+</script>
+</html>
